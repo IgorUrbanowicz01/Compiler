@@ -1,4 +1,4 @@
-# Compiler of a simple imperative language
+# Compiler
 ## Description
 
 A compiler is a type of software that converts source code written in one programming language (the "source language") into machine code or another form of executable code (the "target language"). The process of compilation involves several stages, including lexical analysis (breaking the code down into individual "tokens"), syntax analysis (checking that the code follows the rules of the programming language), and code generation (creating the target code based on the input source code). In our example, we convert from a very simple language with some similarities to C to a virtual machine code. For the full specification, please refer to labor4.pdf.
@@ -76,7 +76,7 @@ This folder contains all the code for the compiler, including the following:
 - `test.sh`, which is a Bash script that I used to run some tests
 - A `Makefile` for compiling the code
 
-### Operations Folder
+### operation
 
 This folder contains pre-written, efficient basic operations for addition, subtraction, multiplication, and division, as well as their corresponding function calls.
 
