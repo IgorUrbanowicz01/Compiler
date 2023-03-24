@@ -57,31 +57,35 @@ END
 
 ## Specifications and Details
 
- My compiler is written in C using Flex (Fast Lexical Analyzer Generator) and Bison for code analysis and parsing. I based it on the theory from the book ["Introduction to Compilers and Language Design"](https://www3.nd.edu/~dthain/compilerbook/) by Douglas Thain. At first, it uses Flex to remove white spaces and separate code into tokens. Afterwards, Bison parses those tokens using a context-free grammar and creates an AST (abstract syntax tree), which is a very handy way to keep our program organized and allows us easy access and manipulation of the code. The AST is made up of four different nodes: decl (declaration), expr (expression), stmt (statement), and type. The last one is somewhat redundant because this language is simple, and there are only two different types (int and procedure), and we could easily get by without it. However, following the advice of the book mentioned above, if I ever needed to expand my compiler, it might come in handy, and it's generally good practice to include it. Declarations always lie at the top of the tree and contain both variables and entire procedures. Statements hold secions of code like if statments and while loops. Expresions are sigle operations altho they can point to other expresion. The general trend of the tree is delc -> stmt -> expr.
+ My compiler is written in C using Flex (Fast Lexical Analyzer Generator) and Bison for code analysis and parsing. I based it on the theory from the book ["Introduction to Compilers and Language Design"](https://www3.nd.edu/~dthain/compilerbook/) by Douglas Thain. At first, it uses Flex to remove white spaces and separate code into tokens. Afterwards, Bison parses those tokens using a context-free grammar and creates an AST (abstract syntax tree), which is a very handy way to keep our program organized and allows us easy access and manipulation of the code. The AST is made up of four different nodes: decl (declaration), expr (expression), stmt (statement), and type. The last one is somewhat redundant because this language is simple, and there are only two different types (int and procedure), and we could easily get by without it. However, following the advice of the book mentioned above, if I ever needed to expand my compiler, it might come in handy, and it's generally good practice to include it. Declarations always lie at the top of the tree and contain both variables and entire procedures. Statements hold sections of code, like if statements and while loops. Expressions are single operations, although they can point to other expressions. The general trend of the tree is decl → stmt → expr.
     
 ## Optimisation
 
-I added unit tests for Memory class which creates Memory mockup, perform some operations on it (adds many variables and procedures), then checks if returned values of chosen variables and procedures are correct. Second test is written in bash and involves running three test programs through the process of compiling and running it on the virtual machine, then checks if the output is correct (correct output is defined in ie. {test_program_name}_correct.out).
+One of the most common way for optimisation is "constant folding". I's basicly what it sounds like. We look thru the tree and if we ever encunter an expresion that has no varibles we can "fold it" e.g. 3+2-x -> expr(expr(3+2)-x) -> expr(5-x). Other whay to make your code faster is dividing by half when we see /2^x apropriet aount of time. It's significatly quicker then call the div procedure. Speeking of wich calling another way of optimisation. There are gennerly two schools of thought when it comes to basic funcions. You can either paste the entire code when you see any operations or you can initialize them at the beginning of the virtual machine code and then call them this method is slightly as we still need to paste the call phrase and make the operations but only ads a contant number of commands to the time of each opertion and it significantly decres the amount of commands with represents saving memory.
 
 ## Quick overview of files and folders structure
 
-### src
+## Source Folder
 
-Source folder contains compiler code:
-- codeGenerator (contains machine code generator),
-- memory (code for virtual machine memory mockup with some extensions like procedures and more complex variables),
-- parser (Flex and Bison code),
-- variables (code for variable implementation).
+This folder contains all the code for the compiler, including the following:
 
-### tests
-Folder that contains example code for testing, code that should give errors and correct output files.
+- Nodes for the Abstract Syntax Tree (AST)
+- `labor4.pdf`, which is the full task assigned by Dr. Maciej Gębala
+- Bison code for the parser
+- Flex code for the scanner
+- `test.sh`, which is a Bash script that I used to run some tests
+- A `Makefile` for compiling the code
 
-### tools
-Folder with Flex and Bison version used in the compiler.
+### Operations Folder
+
+This folder contains pre-written, efficient basic operations for addition, subtraction, multiplication, and division, as well as their corresponding function calls.
+
+### codeGen
+Folder containing implementations that generate code for each node in the Abstract Syntax Tree (AST).
 
 ### virtual-machine
 Folder with virtual-machine files and code.
 
 ## Contributors
-* [Mateusz Gancarz](https://github.com/magancarz) - compiler code
+* [Igor Urbanowicz](https://github.com/IgorUrbanowicz01) - compiler code
 * [Dr Maciej Gębala](https://cs.pwr.edu.pl/gebala/) - virtual machine and assignment
